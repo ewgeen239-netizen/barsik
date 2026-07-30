@@ -1,13 +1,14 @@
 import path from 'path';
 import { JsonStore, Store } from './store';
 import { KvStore } from './kvStore';
+import { hasKv } from './kvClient';
 import { seedProducts } from './seedData';
 import { Order, Product, TradeIn } from '../types';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 
 /** На Vercel використовуємо KV (файли ефемерні), локально — JSON-файли. */
-const useKv = Boolean(process.env.KV_REST_API_URL);
+const useKv = hasKv();
 
 function makeStore<T extends { id: string }>(name: string): Store<T> {
   return useKv

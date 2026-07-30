@@ -11,6 +11,7 @@ import { showMainMenu } from './handlers/render';
 import { removeKeyboard } from './ui/keyboards';
 import { texts } from './ui/texts';
 import { products } from './db';
+import { hasKv } from './db/kvClient';
 import { kvSessionStore } from './kvSession';
 
 async function ack(ctx: BotContext): Promise<void> {
@@ -29,8 +30,7 @@ export function createBot(): Telegraf<BotContext> {
   });
 
   // На Vercel (KV присутній) сесії зберігаємо в KV, локально — у пам'яті.
-  const useKv = Boolean(process.env.KV_REST_API_URL);
-  bot.use(useKv ? session({ store: kvSessionStore }) : session());
+  bot.use(hasKv() ? session({ store: kvSessionStore }) : session());
 
   const stage = new Scenes.Stage<BotContext>([bookingScene, sellScene, askScene, adminAddScene]);
 

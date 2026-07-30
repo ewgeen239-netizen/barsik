@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv';
+import { kvClient } from './db/kvClient';
 
 /**
  * Сховок сесій Telegraf на базі Vercel KV.
@@ -11,13 +11,13 @@ import { kv } from '@vercel/kv';
 export const kvSessionStore = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async get(name: string): Promise<any> {
-    return (await kv.get(`sess:${name}`)) ?? undefined;
+    return (await kvClient().get(`sess:${name}`)) ?? undefined;
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async set(name: string, value: any): Promise<void> {
-    await kv.set(`sess:${name}`, value);
+    await kvClient().set(`sess:${name}`, value);
   },
   async delete(name: string): Promise<void> {
-    await kv.del(`sess:${name}`);
+    await kvClient().del(`sess:${name}`);
   },
 };

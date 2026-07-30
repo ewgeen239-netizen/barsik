@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv';
+import { kvClient } from './kvClient';
 import { Store } from './store';
 
 /**
@@ -10,11 +10,11 @@ export class KvStore<T extends { id: string }> implements Store<T> {
   constructor(private readonly key: string) {}
 
   private async read(): Promise<T[]> {
-    return (await kv.get<T[]>(this.key)) ?? [];
+    return (await kvClient().get<T[]>(this.key)) ?? [];
   }
 
   private async write(items: T[]): Promise<void> {
-    await kv.set(this.key, items);
+    await kvClient().set(this.key, items);
   }
 
   async all(): Promise<T[]> {

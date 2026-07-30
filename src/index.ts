@@ -1,16 +1,16 @@
 import { createBot } from './bot';
 import { config } from './config';
+import { BOT_COMMANDS } from './commands';
+import { seedIfEmpty } from './db';
 
 async function main(): Promise<void> {
   const bot = createBot();
 
+  // Локальний запуск: сідуємо каталог за потреби.
+  await seedIfEmpty();
+
   // Меню команд у клієнті Telegram.
-  await bot.telegram.setMyCommands([
-    { command: 'start', description: 'Головне меню' },
-    { command: 'menu', description: 'Головне меню' },
-    { command: 'cancel', description: 'Скасувати поточну дію' },
-    { command: 'help', description: 'Довідка' },
-  ]);
+  await bot.telegram.setMyCommands(BOT_COMMANDS);
 
   process.once('SIGINT', () => bot.stop('SIGINT'));
   process.once('SIGTERM', () => bot.stop('SIGTERM'));

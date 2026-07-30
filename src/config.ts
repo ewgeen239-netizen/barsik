@@ -18,6 +18,9 @@ export const config = {
   botToken: required('BOT_TOKEN'),
   adminId,
   managerUsername: (process.env.MANAGER_USERNAME || '').replace(/^@/, '').trim(),
+  // Для деплою на Vercel (webhook):
+  webhookSecret: (process.env.TELEGRAM_WEBHOOK_SECRET || '').trim(),
+  setupSecret: (process.env.SETUP_SECRET || '').trim(),
 };
 
 export function isAdmin(userId?: number): boolean {

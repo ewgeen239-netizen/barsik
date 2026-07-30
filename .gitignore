@@ -2,7 +2,9 @@ node_modules/
 dist/
 .env
 *.log
+.vercel
 
-# Дані створюються під час роботи бота (окрім засіяного products.json)
+# Локальні дані (генеруються ботом / сідуються з src/db/seedData.ts)
+data/products.json
 data/orders.json
 data/tradeins.json

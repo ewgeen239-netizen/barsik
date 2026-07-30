@@ -1,11 +1,21 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
+/** Спільний інтерфейс сховку — реалізують JsonStore (локально) та KvStore (Vercel). */
+export interface Store<T extends { id: string }> {
+  all(): Promise<T[]>;
+  find(predicate: (item: T) => boolean): Promise<T[]>;
+  getById(id: string): Promise<T | undefined>;
+  add(item: T): Promise<T>;
+  update(id: string, patch: Partial<T>): Promise<T | undefined>;
+  remove(id: string): Promise<boolean>;
+}
+
 /**
  * Простий асинхронний JSON-сховок з кешем у пам'яті та атомарним записом.
  * Придатний для невеликих обсягів даних одного бота (polling).
  */
-export class JsonStore<T extends { id: string }> {
+export class JsonStore<T extends { id: string }> implements Store<T> {
   private items: T[] | null = null;
   private writeQueue: Promise<void> = Promise.resolve();
 

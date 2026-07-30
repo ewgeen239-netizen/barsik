@@ -1,0 +1,33 @@
+{
+  "name": "used-tech-store-bot",
+  "version": "1.0.0",
+  "description": "Telegram-бот магазину б/у техніки (iPhone, Android, ноутбуки, планшети, Apple Watch, AirPods, аксесуари)",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "keywords": [
+    "telegram",
+    "telegraf",
+    "bot",
+    "shop",
+    "used-tech"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

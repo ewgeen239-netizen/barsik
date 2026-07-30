@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.log
+
+# Дані створюються під час роботи бота (окрім засіяного products.json)
+data/orders.json
+data/tradeins.json
